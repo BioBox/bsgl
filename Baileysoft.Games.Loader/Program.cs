@@ -180,9 +180,18 @@ namespace Baileysoft.Games.Loader
                 FileName = name,
                 Arguments = game.Args
             };
-
-            var p = Process.Start(startInfo);
-            p.WaitForExit();
+            try
+            {
+                var p = Process.Start(startInfo);
+                p.WaitForExit();
+            }
+            /*When Process.Start(ProcessStartInfo) is called in Unix it invokes gvfs-open,
+            which may not work for some applications.
+            In that case, execute the game in the old-fashioned way.*/
+            catch
+            {
+                Process.Start(game.Path + game.Args).WaitForExit();
+            }
         }
 
         #endregion Methods

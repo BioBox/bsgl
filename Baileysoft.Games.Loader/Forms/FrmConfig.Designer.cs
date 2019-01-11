@@ -153,7 +153,10 @@
             // ctxMenuLvGames
             // 
             this.ctxMenuLvGames.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            // Clicking this button causes Ubuntu to freeze
+            #if !LINUX
             this.ctxMenuLvGamesLaunch,
+            #endif
             this.ctxMenuLvGamesShortcut,
             this.ctxMenuLvGamesFolder,
             this.toolStripSeparator1,
