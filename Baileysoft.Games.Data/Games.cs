@@ -29,6 +29,7 @@ namespace Baileysoft.Games.Data
     using System.IO;
     using System.Reflection;
     using System.Xml.Linq;
+    using System.Globalization;
 
     /// <summary>
     /// Games abstraction
@@ -69,7 +70,7 @@ namespace Baileysoft.Games.Data
             var xdoc = XDocument.Load(IndexFile);
             var xAttribute = xdoc.Root?.Attribute("revision");
             if (xAttribute != null)
-                Revision = double.Parse(xAttribute.Value);
+                Revision = double.Parse(xAttribute.Value, CultureInfo.InvariantCulture);
 
             var gameRepo = new GameRepository(IndexFile);
             AddRange(gameRepo.Get(Game.Keys.Title, GameRepository.SortOrder.ASCENDING));
